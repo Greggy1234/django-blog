@@ -1,11 +1,25 @@
 from django.shortcuts import render
+from django.contrib import messages
 from .models import About
 from .forms import CollaborateForm
-from django.contrib import messages
 
 
 # Create your views here.
 def about_detail(request):
+    """
+    Renders most recent info on website author
+    and allows collaboration requests
+    Displays individual instance of  :model:`about.About`
+
+    **Context:**
+    ``about``
+        THe most recent instance of :model:`about.About`
+    ``colaborate_form``
+        An instance of :form:`about.collaborateForm`
+    
+    **Template:**
+    :template:`about/about.html`
+    """
     about = About.objects.all().order_by('-updated_on').first()
 
     if request.method == "POST":
